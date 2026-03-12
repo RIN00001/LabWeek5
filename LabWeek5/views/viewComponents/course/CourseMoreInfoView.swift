@@ -36,21 +36,12 @@ struct CourseMoreInfoView: View {
                         .font(.title2)
                         .padding(.top, 4)
 
-                    VStack(spacing: 16) {
-                        Button("Mark as In Progress") { course.status = .inProgress }
-                        Button("Mark as Completed") { course.status = .completed }
-                        Button("Mark as Upcoming") { course.status = .upcoming }
-                    }
-                    .font(.title2)
-                    .foregroundStyle(.blue)
-
-                    Divider()
-                        .padding(.top, 8)
-
-                    Button("Close") { dismiss() }
-                        .font(.title2)
-                        .foregroundStyle(.blue)
-                        .padding(.top, 8)
+                    Button("Mark as In Progress") { updateStatus(.inProgress) }
+                        .buttonStyle(.borderless)
+                    Button("Mark as Completed") { updateStatus(.completed) }
+                        .buttonStyle(.borderless)
+                    Button("Mark as Upcoming") { updateStatus(.upcoming) }
+                        .buttonStyle(.borderless)
                 }
                 .padding(28)
                 .background(Color(.systemBackground))
@@ -61,6 +52,11 @@ struct CourseMoreInfoView: View {
                 Spacer()
             }
         }
+    }
+
+    private func updateStatus(_ status: CourseStatus) {
+        course.status = status
+        dismiss()
     }
 }
 

@@ -9,36 +9,47 @@ import SwiftUI
 
 struct CourseView: View {
     @EnvironmentObject private var data: AppData
+    @StateObject private var viewModel = CourseViewModel()
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-                Text("Courses")
-                    .font(.largeTitle.bold())
-
-                VStack(spacing: 12) {
-                    ForEach(data.courses) { course in
-                        NavigationLink(value: course) {
-                            _CourseListCard(course: course)
-                        }
-                        .buttonStyle(.plain)
-                    }
+        List {
+            ForEach(viewModel.courses) { course in
+                NavigationLink(value: course.id) {
+                    _CourseListCard(course: course)
                 }
             }
             .padding()
         }
-        .background(Color(.systemGray6))
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationDestination(for: Course.self) { course in
-            CourseDetailView(course: binding(for: course))
+        .navigationTitle("Courses")
+        .navigationDestination(for: Course.ID.self) { courseID in
+            CourseDetailView(course: binding(for: courseID))
+        }
+        .onAppear {
+            if viewModel.courses.isEmpty {
+                viewModel.setCourses(data.courses)
+            }
+        }
+        .onChange(of: viewModel.courses) { _, updatedCourses in
+            data.courses = updatedCourses
         }
     }
 
-    private func binding(for course: Course) -> Binding<Course> {
-        guard let index = data.courses.firstIndex(of: course) else {
-            return .constant(course)
+    private func binding(for courseID: Course.ID) -> Binding<Course> {
+        guard let index = viewModel.index(for: courseID) else {
+            return .constant(
+                Course(
+                    id: courseID,
+                    name: "Unknown Course",
+                    description: "Course data is unavailable.",
+                    lecturerName: "Unknown Lecturer",
+                    lecturerImageSystemName: "person.circle.fill",
+                    credits: 0,
+                    status: .upcoming
+                )
+            )
         }
-        return $data.courses[index]
+
+        return $viewModel.courses[index]
     }
 }
 
