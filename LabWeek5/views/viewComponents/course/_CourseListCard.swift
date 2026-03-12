@@ -12,31 +12,27 @@ struct _CourseListCard: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            Image(systemName: course.lecturerImageSystemName)
-                .font(.system(size: 28))
-                .foregroundStyle(.purple)
-                .frame(width: 36)
+            Image(course.lecturerImageName)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 42, height: 42)
+                .clipShape(Circle())
 
-            VStack(alignment: .leading, spacing: 2) {
+            VStack(alignment: .leading, spacing: 3) {
                 Text(course.name)
                     .font(.headline)
-                HStack(spacing: 6) {
-                    Text(course.lecturerName)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                    Text("•")
-                        .foregroundStyle(.secondary)
-                    Text("\(course.credits) credits")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
+                Text(course.lecturerName)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
             }
+
             Spacer()
+
             Text(course.status.rawValue)
-                .font(.caption2)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 4)
-                .background(course.status.color.opacity(0.15))
+                .font(.caption2.weight(.semibold))
+                .padding(.horizontal, 10)
+                .padding(.vertical, 5)
+                .background(course.status.color.opacity(0.2))
                 .foregroundStyle(course.status.color)
                 .clipShape(Capsule())
         }
