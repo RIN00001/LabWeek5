@@ -14,17 +14,21 @@ struct _FeaturedCourseCard: View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Featured Course")
                 .font(.headline)
+                .fontWeight(.semibold)
+
             Text(course.name)
-                .font(.title3.bold())
+                .font(.headline)
+                .foregroundStyle(.primary)
+
             Text(course.description)
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .lineLimit(2)
         }
-        .padding()
+        .padding(16)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color(.secondarySystemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .background(Color(.systemGray6))
+        .clipShape(RoundedRectangle(cornerRadius: 14))
     }
 }
 

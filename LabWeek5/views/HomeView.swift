@@ -12,57 +12,50 @@ struct HomeView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 14) {
-                Text("Campus Guide")
-                    .font(.largeTitle).bold()
-                    .frame(maxWidth: .infinity, alignment: .center)
 
-                Text("Explore facilities and track your courses.")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                    .frame(maxWidth: .infinity, alignment: .center)
+            VStack(alignment: .leading, spacing: 18) {
+                Text("Home")
+                    .font(.largeTitle)
+                    .bold()
+                    .padding(.horizontal)
+
+                VStack(spacing: 6) {
+                    Text("Campus Guide")
+                        .font(.title)
+                        .fontWeight(.bold)
+
+                    Text("Explore facilities and track your courses.")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal)
 
                 HStack(spacing: 12) {
                     _TakenCoursesCard(count: data.takenCoursesCount)
-                    FacilitiesCountCard(count: data.facilities.count)
+                    _FacilitiesCard(count: data.facilities.count)
                 }
+                .padding(.horizontal)
 
                 if let featured = data.featuredCourse {
                     _FeaturedCourseCard(course: featured)
+                        .padding(.horizontal)
                 }
             }
             .padding()
         }
-        .navigationTitle("Home")
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarHidden(true)
     }
 }
 
-private struct FacilitiesCountCard: View {
-    let count: Int
 
-    var body: some View {
-        VStack(spacing: 10) {
-            Image(systemName: "building.2.fill")
-                .font(.system(size: 28))
-                .foregroundStyle(.white)
 
-            Text("\(count)")
-                .font(.title2.bold())
-                .foregroundStyle(.white)
-
-            Text("Facilities")
-                .font(.subheadline)
-                .foregroundStyle(.white.opacity(0.9))
-        }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 18)
-        .background(Color.green)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-    }
-}
 
 #Preview {
-    NavigationStack { HomeView() }
-        .environmentObject(AppData())
+    NavigationStack {
+        HomeView()
+            .environmentObject(AppData())
+    }
 }
+

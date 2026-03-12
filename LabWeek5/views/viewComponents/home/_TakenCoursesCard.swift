@@ -13,21 +13,22 @@ struct _TakenCoursesCard: View {
     var body: some View {
         VStack(spacing: 10) {
             Image(systemName: "book.fill")
-                .font(.system(size: 28))
+                .font(.system(size: 24, weight: .medium))
                 .foregroundStyle(.white)
 
             Text("\(count)")
-                .font(.title2.bold())
+                .font(.title3)
+                .fontWeight(.bold)
                 .foregroundStyle(.white)
 
             Text("Courses")
-                .font(.subheadline)
+                .font(.caption)
                 .foregroundStyle(.white.opacity(0.9))
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 18)
+        .frame(height: 110)
         .background(Color.blue)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .clipShape(RoundedRectangle(cornerRadius: 16))
     }
 }
 
