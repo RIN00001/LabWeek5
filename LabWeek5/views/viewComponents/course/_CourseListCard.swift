@@ -12,10 +12,10 @@ struct _CourseListCard: View {
     let course: Course
 
     var body: some View {
-        HStack(spacing: 10) {
+        HStack(spacing: 12) {
             lecturerImage
 
-            VStack(alignment: .leading, spacing: 2) {
+            VStack(alignment: .leading, spacing: 3) {
                 Text(course.name)
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(.primary)
@@ -30,7 +30,7 @@ struct _CourseListCard: View {
                     .foregroundStyle(.secondary)
             }
 
-            Spacer(minLength: 6)
+            Spacer(minLength: 8)
 
             Text(course.status.rawValue)
                 .font(.caption2.weight(.semibold))
@@ -44,8 +44,10 @@ struct _CourseListCard: View {
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(Color(.systemGray3))
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 10)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 12)
+        .background(Color(.systemGray6))
+        .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
     }
 
     @ViewBuilder
@@ -66,6 +68,9 @@ struct _CourseListCard: View {
     }
 }
 
+#Preview {
+    _CourseListCard(course: AppData().courses[0])
+}
 #Preview {
     _CourseListCard(course: AppData().courses[0])
 }

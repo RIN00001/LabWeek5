@@ -12,26 +12,18 @@ struct CourseView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 18) {
+            VStack(alignment: .leading, spacing: 16) {
                 Text("Courses")
                     .font(.largeTitle.bold())
 
-                VStack(spacing: 0) {
-                    ForEach(Array(data.courses.enumerated()), id: \.element.id) { index, course in
+                VStack(spacing: 12) {
+                    ForEach(data.courses) { course in
                         NavigationLink(value: course) {
                             _CourseListCard(course: course)
                         }
                         .buttonStyle(.plain)
-
-                        if index < data.courses.count - 1 {
-                            Divider()
-                                .padding(.leading, 82)
-                        }
                     }
                 }
-                .padding(.vertical, 8)
-                .background(Color(.systemBackground))
-                .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
             }
             .padding()
         }

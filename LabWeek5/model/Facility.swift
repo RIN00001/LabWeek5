@@ -6,7 +6,7 @@
 //
 
 import Foundation
-struct Facility: Identifiable, Codable, Equatable,Hashable {
+struct Facility: Identifiable, Equatable,Hashable {
     let id: UUID
     var name: String
     var imageName: String

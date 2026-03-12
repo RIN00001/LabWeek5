@@ -26,6 +26,8 @@ struct AboutPageView: View {
                 .foregroundStyle(.secondary)
             Text("Exercise Week 5 - Navigation Pt.2")
                 .foregroundStyle(.secondary)
+            Text("Mobile development - Class A")
+                .foregroundStyle(.secondary)
 
             Text("Built using SwiftUI with MVVM architecture.")
                 .font(.body)
