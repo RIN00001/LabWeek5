@@ -1,5 +1,5 @@
 //
-//  _TakenCoursesCard.swift
+//  _FacilitiesCard.swift
 //  LabWeek5
 //
 //  Created by student on 12/03/26.
@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct _TakenCoursesCard: View {
+struct _FacilitiesCard: View {
     let count: Int
 
     var body: some View {
         VStack(spacing: 10) {
-            Image(systemName: "book.fill")
+            Image(systemName: "building.2.fill")
                 .font(.system(size: 24, weight: .medium))
                 .foregroundStyle(.white)
 
@@ -21,17 +21,17 @@ struct _TakenCoursesCard: View {
                 .fontWeight(.bold)
                 .foregroundStyle(.white)
 
-            Text("Courses")
+            Text("Facilities")
                 .font(.caption)
                 .foregroundStyle(.white.opacity(0.9))
         }
         .frame(maxWidth: .infinity)
         .frame(height: 110)
-        .background(Color.blue)
+        .background(Color.green)
         .clipShape(RoundedRectangle(cornerRadius: 16))
     }
 }
 
 #Preview {
-    _TakenCoursesCard(count: 3)
+ _FacilitiesCard(count: 3)
 }

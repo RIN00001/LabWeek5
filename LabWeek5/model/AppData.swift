@@ -5,9 +5,8 @@
 //  Created by student on 12/03/26.
 //
 
+import Combine
 import Foundation
-import SwiftUI
-internal import Combine
 
 final class AppData: ObservableObject {
     @Published var courses: [Course]
@@ -15,20 +14,63 @@ final class AppData: ObservableObject {
 
     init() {
         self.courses = [
-            Course(name: "Mobile Application Development", description: "Learn to build iOS applications using Swift and SwiftUI.", lecturerName: "Dr. Irene", lecturerImageSystemName: "person.circle.fill", credits: 3, status: .inProgress, isFeatured: true),
-            Course(name: "Data Structures", description: "Core data structures and algorithms.", lecturerName: "Prof. Alan", lecturerImageSystemName: "person.circle.fill", credits: 4, status: .upcoming),
-            Course(name: "Visual Programming", description: "UIKit, SwiftUI, and design patterns.", lecturerName: "Ms. Diane", lecturerImageSystemName: "person.circle.fill", credits: 2, status: .completed)
+            Course(
+                name: "Mobile Application Development",
+                description: "Learn to build iOS applications using Swift and SwiftUI.",
+                lecturerName: "Bu. There",
+                lecturerImageName: "Theresia",
+                credits: 3,
+                status: .inProgress,
+                isFeatured: true
+            ),
+            Course(
+                name: "Statistics",
+                description: "Understand probability, inference, and statistical modelling.",
+                lecturerName: "Pak. Christo",
+                lecturerImageName: "Christo",
+                credits: 3,
+                status: .completed
+            ),
+            Course(
+                name: "Visual Programming",
+                description: "Build modern interfaces and interactions with visual programming concepts.",
+                lecturerName: "Pak. Evan",
+                lecturerImageName: "Evan",
+                credits: 3,
+                status: .upcoming
+            )
         ]
 
         self.facilities = [
-            Facility(name: "Library", imageName: "books.vertical.fill", description: "Quiet study spaces with books and journals.", location: "Old Building, Floor 2"),
-            Facility(name: "Computer Lab", imageName: "desktopcomputer", description: "Modern lab with up-to-date machines.", location: "New Building, Floor 3"),
-            Facility(name: "Student Center", imageName: "person.3.sequence.fill", description: "Hangout area, cafeteria, and services.", location: "Main Hall, Floor 1")
+            Facility(
+                name: "Library",
+                imageName: "Library",
+                description: "Quiet study spaces with books and journals.",
+                location: "Main Building"
+            ),
+            Facility(
+                name: "Computer Lab",
+                imageName: "ComputerLab",
+                description: "Modern computer lab with up-to-date software and hardware.",
+                location: "Technology Center"
+            ),
+            Facility(
+                name: "Food Technology Lab",
+                imageName: "FoodTechnology",
+                description: "Hands-on food processing and quality analysis lab.",
+                location: "Food Lab Building"
+            ),
+            Facility(
+                name: "SIFT",
+                imageName: "SIFT",
+                description: "Hands-on Computer science prongramming lab.",
+                location: "SIFT Building"
+            )
         ]
     }
 
     var takenCoursesCount: Int {
-        courses.filter { $0.status == .inProgress || $0.status == .completed }.count
+        courses.count
     }
 
     var featuredCourse: Course? {

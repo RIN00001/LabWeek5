@@ -18,6 +18,7 @@ struct CourseView: View {
                     _CourseListCard(course: course)
                 }
             }
+            .padding()
         }
         .navigationTitle("Courses")
         .navigationDestination(for: Course.ID.self) { courseID in
