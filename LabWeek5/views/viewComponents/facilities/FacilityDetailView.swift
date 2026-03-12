@@ -13,13 +13,11 @@ struct FacilityDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                Image(systemName: facility.imageName)
+                Image(facility.imageName)
                     .resizable()
                     .scaledToFit()
-                    .frame(height: 160)
-                    .foregroundStyle(.blue)
                     .frame(maxWidth: .infinity)
-                    .padding()
+                    .frame(height: 200)
                     .background(Color(.secondarySystemBackground))
                     .clipShape(RoundedRectangle(cornerRadius: 16))
 
@@ -43,6 +41,6 @@ struct FacilityDetailView: View {
 
 #Preview {
     FacilityDetailView(
-        facility: Facility(name: "Library", imageName: "books.vertical.fill", description: "Quiet study space with books and journals.", location: "Old Building, Floor 2")
+        facility: Facility(name: "Library", imageName: "Library", description: "Quiet study space with books and journals.", location: "Old Building, Floor 2")
     )
 }
