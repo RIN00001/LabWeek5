@@ -6,18 +6,37 @@
 //
 
 import SwiftUI
+
 struct CourseView: View {
     @EnvironmentObject private var data: AppData
 
     var body: some View {
-        List {
-            ForEach(data.courses) { course in
-                NavigationLink(value: course) {
-                    _CourseListCard(course: course)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 18) {
+                Text("Courses")
+                    .font(.largeTitle.bold())
+
+                VStack(spacing: 0) {
+                    ForEach(Array(data.courses.enumerated()), id: \.element.id) { index, course in
+                        NavigationLink(value: course) {
+                            _CourseListCard(course: course)
+                        }
+                        .buttonStyle(.plain)
+
+                        if index < data.courses.count - 1 {
+                            Divider()
+                                .padding(.leading, 82)
+                        }
+                    }
                 }
+                .padding(.vertical, 8)
+                .background(Color(.systemBackground))
+                .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
             }
+            .padding()
         }
-        .navigationTitle("Courses")
+        .background(Color(.systemGray6))
+        .navigationBarTitleDisplayMode(.inline)
         .navigationDestination(for: Course.self) { course in
             CourseDetailView(course: binding(for: course))
         }
@@ -35,4 +54,3 @@ struct CourseView: View {
     NavigationStack { CourseView() }
         .environmentObject(AppData())
 }
-

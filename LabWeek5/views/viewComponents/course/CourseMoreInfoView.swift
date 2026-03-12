@@ -12,36 +12,54 @@ struct CourseMoreInfoView: View {
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        NavigationStack {
-            VStack(alignment: .leading, spacing: 16) {
-                Text(course.description)
-                    .font(.body)
+        ZStack {
+            Color(.systemGray6).ignoresSafeArea()
 
-                VStack(alignment: .leading, spacing: 8) {
+            VStack(spacing: 0) {
+                VStack(spacing: 14) {
+                    Text(course.name)
+                        .font(.largeTitle.weight(.medium))
+                        .multilineTextAlignment(.center)
+
+                    Text(course.description)
+                        .font(.title3)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+
                     Text("Current Status: \(course.status.rawValue)")
-                        .font(.subheadline)
-                        .padding(.vertical, 8)
+                        .font(.title3.weight(.semibold))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+
+                    Divider()
+                        .padding(.top, 6)
 
                     Text("Update Status")
-                        .font(.headline)
+                        .font(.title2)
                         .padding(.top, 4)
 
-                    Button("Mark as In Progress") { course.status = .inProgress }
-                        .buttonStyle(.borderless)
-                    Button("Mark as Completed") { course.status = .completed }
-                        .buttonStyle(.borderless)
-                    Button("Mark as Upcoming") { course.status = .upcoming }
-                        .buttonStyle(.borderless)
+                    VStack(spacing: 16) {
+                        Button("Mark as In Progress") { course.status = .inProgress }
+                        Button("Mark as Completed") { course.status = .completed }
+                        Button("Mark as Upcoming") { course.status = .upcoming }
+                    }
+                    .font(.title2)
+                    .foregroundStyle(.blue)
+
+                    Divider()
+                        .padding(.top, 8)
+
+                    Button("Close") { dismiss() }
+                        .font(.title2)
+                        .foregroundStyle(.blue)
+                        .padding(.top, 8)
                 }
+                .padding(28)
+                .background(Color(.systemBackground))
+                .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
+                .padding(.horizontal, 18)
+                .padding(.top, 12)
 
                 Spacer()
-
-                Button("Close") { dismiss() }
-                    .frame(maxWidth: .infinity)
             }
-            .padding()
-            .navigationTitle("More Information")
-            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
