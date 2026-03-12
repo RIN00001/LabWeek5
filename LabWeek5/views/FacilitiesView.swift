@@ -15,12 +15,10 @@ struct FacilitiesView: View {
             ForEach(data.facilities) { facility in
                 NavigationLink(value: facility) {
                     HStack(spacing: 12) {
-                        Image(facility.imageName)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 56, height: 56)
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
-
+                        Image(systemName: facility.imageName)
+                            .font(.system(size: 28))
+                            .foregroundStyle(.blue)
+                            .frame(width: 36)
                         VStack(alignment: .leading) {
                             Text(facility.name).font(.headline)
                             Text(facility.location)

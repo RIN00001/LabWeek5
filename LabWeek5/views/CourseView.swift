@@ -9,54 +9,46 @@ import SwiftUI
 
 struct CourseView: View {
     @EnvironmentObject private var data: AppData
+    @StateObject private var viewModel = CourseViewModel()
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 18) {
-                Text("Courses")
-                    .font(.largeTitle.bold())
-
-                VStack(spacing: 0) {
-                    ForEach(Array(data.courses.enumerated()), id: \.element.id) { index, course in
-                        NavigationLink(value: course) {
-                            _CourseListCard(course: course)
-                        }
-                        .buttonStyle(.plain)
-
-                        if index < data.courses.count - 1 {
-                            Divider()
-                                .padding(.leading, 82)
-                        }
-                    }
+        List {
+            ForEach(viewModel.courses) { course in
+                NavigationLink(value: course.id) {
+                    _CourseListCard(course: course)
                 }
-                .padding(.vertical, 8)
-                .background(Color(.systemBackground))
-                .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
             }
-            .padding()
         }
-        .background(Color(.systemGray6))
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationDestination(for: Course.self) { course in
-            CourseDetailView(course: binding(for: course.id))
+        .navigationTitle("Courses")
+        .navigationDestination(for: Course.ID.self) { courseID in
+            CourseDetailView(course: binding(for: courseID))
+        }
+        .onAppear {
+            if viewModel.courses.isEmpty {
+                viewModel.setCourses(data.courses)
+            }
+        }
+        .onChange(of: viewModel.courses) { _, updatedCourses in
+            data.courses = updatedCourses
         }
     }
 
     private func binding(for courseID: Course.ID) -> Binding<Course> {
-        guard let index = data.courses.firstIndex(where: { $0.id == courseID }) else {
+        guard let index = viewModel.index(for: courseID) else {
             return .constant(
                 Course(
                     id: courseID,
                     name: "Unknown Course",
-                    description: "This course is no longer available.",
-                    lecturerName: "N/A",
-                    lecturerImageName: "",
+                    description: "Course data is unavailable.",
+                    lecturerName: "Unknown Lecturer",
+                    lecturerImageSystemName: "person.circle.fill",
                     credits: 0,
                     status: .upcoming
                 )
             )
         }
-        return $data.courses[index]
+
+        return $viewModel.courses[index]
     }
 }
 

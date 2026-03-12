@@ -12,26 +12,30 @@ struct HomeView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 14) {
-                Text("Campus Guide")
-                    .font(.largeTitle).bold()
-                    .frame(maxWidth: .infinity, alignment: .center)
-
-                Text("Explore facilities and track your courses.")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                    .frame(maxWidth: .infinity, alignment: .center)
-
-                HStack(spacing: 12) {
-                    _TakenCoursesCard(count: data.takenCoursesCount)
-                    FacilitiesCountCard(count: data.facilities.count)
+            VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Campus Guide")
+                        .font(.largeTitle).bold()
+                    Text("Explore facilities and track your courses.")
+                        .foregroundStyle(.secondary)
                 }
+                .padding(.horizontal)
+                
+ 
+                VStack(spacing: 12) {
+                    HStack(spacing: 12) {
+                        _TakenCoursesCard(count: data.takenCoursesCount)
+                        FacilitiesCountCard(count: data.facilities.count)
+                    }
+                    .padding(.horizontal)
 
-                if let featured = data.featuredCourse {
-                    _FeaturedCourseCard(course: featured)
+                    if let featured = data.featuredCourse {
+                        _FeaturedCourseCard(course: featured)
+                            .padding(.horizontal)
+                    }
                 }
             }
-            .padding()
+            .padding(.vertical)
         }
         .navigationTitle("Home")
         .navigationBarTitleDisplayMode(.inline)
@@ -40,25 +44,29 @@ struct HomeView: View {
 
 private struct FacilitiesCountCard: View {
     let count: Int
-
     var body: some View {
-        VStack(spacing: 10) {
+        VStack(alignment: .leading, spacing: 8) {
             Image(systemName: "building.2.fill")
                 .font(.system(size: 28))
                 .foregroundStyle(.white)
-
-            Text("\(count)")
-                .font(.title2.bold())
-                .foregroundStyle(.white)
-
+                .padding(8)
+                .background(Color.blue)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
             Text("Facilities")
+                .font(.headline)
+            Text("\(count) listed")
                 .font(.subheadline)
-                .foregroundStyle(.white.opacity(0.9))
+                .foregroundStyle(.secondary)
         }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 18)
-        .background(Color.green)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .padding()
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color(.systemBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color.gray.opacity(0.15), lineWidth: 1)
+        )
+        .shadow(color: .black.opacity(0.04), radius: 8, x: 0, y: 4)
     }
 }
 

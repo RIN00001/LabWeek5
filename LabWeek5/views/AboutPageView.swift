@@ -9,25 +9,24 @@ import SwiftUI
 
 struct AboutPageView: View {
     var body: some View {
-        VStack(spacing: 14) {
+        VStack(spacing: 16) {
             Image(systemName: "info.circle.fill")
-                .font(.system(size: 52))
+                .font(.system(size: 48))
                 .foregroundStyle(.blue)
-                .padding(.top, 28)
+                .padding(.top, 24)
 
             Text("Campus Guide App")
-                .font(.title2.bold())
+                .font(.title2).bold()
 
-            Text("Mobile Application Development")
-                .foregroundStyle(.secondary)
-            Text("Gerald Gavin Lienardi")
-                .foregroundStyle(.secondary)
-            Text("Exercise Week 5 - Navigation Pt.2")
-                .foregroundStyle(.secondary)
-
-            Text("Built using SwiftUI with MVVM architecture.")
-                .font(.body)
-                .padding(.top, 8)
+            VStack(spacing: 4) {
+                Text("Mobile Application Development")
+                Text("Rifki Indra Nugroho")
+                Text("NIM: 0706012410033")
+                Text("Exercise Week 5 - Navigation Pt.2")
+                Text("Built using SwiftUI with MVVM architecture.")
+            }
+            .font(.subheadline)
+            .foregroundStyle(.secondary)
 
             Spacer()
         }

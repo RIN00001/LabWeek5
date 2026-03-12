@@ -6,16 +6,16 @@
 //
 
 import SwiftUI
-
 struct _FeaturedCourseCard: View {
     let course: Course
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Featured Course")
-                .font(.headline)
+                .font(.caption)
+                .foregroundStyle(.secondary)
             Text(course.name)
-                .font(.title3.bold())
+                .font(.headline)
             Text(course.description)
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
@@ -24,10 +24,16 @@ struct _FeaturedCourseCard: View {
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color(.secondarySystemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color.gray.opacity(0.15), lineWidth: 1)
+        )
+        .shadow(color: .black.opacity(0.04), radius: 8, x: 0, y: 4)
     }
 }
 
 #Preview {
     _FeaturedCourseCard(course: AppData().featuredCourse!)
 }
+
