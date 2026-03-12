@@ -6,26 +6,55 @@
 //
 
 import SwiftUI
+
 struct CourseView: View {
     @EnvironmentObject private var data: AppData
 
     var body: some View {
-        List {
-            ForEach(data.courses) { course in
-                NavigationLink(value: course) {
-                    _CourseListCard(course: course)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 18) {
+                Text("Courses")
+                    .font(.largeTitle.bold())
+
+                VStack(spacing: 0) {
+                    ForEach(Array(data.courses.enumerated()), id: \.element.id) { index, course in
+                        NavigationLink(value: course) {
+                            _CourseListCard(course: course)
+                        }
+                        .buttonStyle(.plain)
+
+                        if index < data.courses.count - 1 {
+                            Divider()
+                                .padding(.leading, 82)
+                        }
+                    }
                 }
+                .padding(.vertical, 8)
+                .background(Color(.systemBackground))
+                .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
             }
+            .padding()
         }
-        .navigationTitle("Courses")
+        .background(Color(.systemGray6))
+        .navigationBarTitleDisplayMode(.inline)
         .navigationDestination(for: Course.self) { course in
-            CourseDetailView(course: binding(for: course))
+            CourseDetailView(course: binding(for: course.id))
         }
     }
 
-    private func binding(for course: Course) -> Binding<Course> {
-        guard let index = data.courses.firstIndex(of: course) else {
-            return .constant(course)
+    private func binding(for courseID: Course.ID) -> Binding<Course> {
+        guard let index = data.courses.firstIndex(where: { $0.id == courseID }) else {
+            return .constant(
+                Course(
+                    id: courseID,
+                    name: "Unknown Course",
+                    description: "This course is no longer available.",
+                    lecturerName: "N/A",
+                    lecturerImageName: "",
+                    credits: 0,
+                    status: .upcoming
+                )
+            )
         }
         return $data.courses[index]
     }
@@ -35,4 +64,3 @@ struct CourseView: View {
     NavigationStack { CourseView() }
         .environmentObject(AppData())
 }
-
