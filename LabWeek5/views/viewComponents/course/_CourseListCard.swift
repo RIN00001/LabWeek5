@@ -6,41 +6,62 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct _CourseListCard: View {
     let course: Course
 
     var body: some View {
         HStack(spacing: 12) {
-            Image(systemName: course.lecturerImageSystemName)
-                .font(.system(size: 28))
-                .foregroundStyle(.purple)
-                .frame(width: 36)
+            lecturerImage
 
-            VStack(alignment: .leading, spacing: 2) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text(course.name)
-                    .font(.headline)
+                    .font(.title3.weight(.semibold))
+                    .foregroundStyle(.primary)
+
                 HStack(spacing: 6) {
                     Text(course.lecturerName)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
                     Text("•")
-                        .foregroundStyle(.secondary)
                     Text("\(course.credits) credits")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
                 }
+                .font(.title3)
+                .foregroundStyle(.secondary)
             }
-            Spacer()
+
+            Spacer(minLength: 8)
+
             Text(course.status.rawValue)
-                .font(.caption2)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 4)
-                .background(course.status.color.opacity(0.15))
+                .font(.title3)
+                .padding(.horizontal, 14)
+                .padding(.vertical, 7)
+                .background(course.status.color.opacity(0.18))
                 .foregroundStyle(course.status.color)
                 .clipShape(Capsule())
+
+            Image(systemName: "chevron.right")
+                .font(.headline)
+                .foregroundStyle(Color(.systemGray3))
         }
-        .padding(.vertical, 4)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 14)
+    }
+
+    @ViewBuilder
+    private var lecturerImage: some View {
+        if UIImage(named: course.lecturerImageName) != nil {
+            Image(course.lecturerImageName)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 54, height: 54)
+                .clipShape(Circle())
+        } else {
+            Image(systemName: "person.circle.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 54, height: 54)
+                .foregroundStyle(.purple)
+        }
     }
 }
 
