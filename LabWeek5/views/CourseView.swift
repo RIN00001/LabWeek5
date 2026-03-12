@@ -12,15 +12,22 @@ struct CourseView: View {
     @StateObject private var viewModel = CourseViewModel()
 
     var body: some View {
-        List {
-            ForEach(viewModel.courses) { course in
-                NavigationLink(value: course.id) {
-                    _CourseListCard(course: course)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                Text("Courses")
+                    .font(.largeTitle.bold())
+
+                VStack(spacing: 12) {
+                    ForEach(viewModel.courses) { course in
+                        NavigationLink(value: course.id) {
+                            _CourseListCard(course: course)
+                        }
+                        .buttonStyle(.plain)
+                    }
                 }
             }
             .padding()
         }
-        .navigationTitle("Courses")
         .navigationDestination(for: Course.ID.self) { courseID in
             CourseDetailView(course: binding(for: courseID))
         }
@@ -29,31 +36,22 @@ struct CourseView: View {
                 viewModel.setCourses(data.courses)
             }
         }
-        .onChange(of: viewModel.courses) { _, updatedCourses in
+        .onChange(of: viewModel.courses) { updatedCourses in
             data.courses = updatedCourses
         }
     }
 
     private func binding(for courseID: Course.ID) -> Binding<Course> {
         guard let index = viewModel.index(for: courseID) else {
-            return .constant(
-                Course(
-                    id: courseID,
-                    name: "Unknown Course",
-                    description: "Course data is unavailable.",
-                    lecturerName: "Unknown Lecturer",
-                    lecturerImageSystemName: "person.circle.fill",
-                    credits: 0,
-                    status: .upcoming
-                )
-            )
+            fatalError("Course with id \(courseID) not found")
         }
-
         return $viewModel.courses[index]
     }
 }
 
 #Preview {
-    NavigationStack { CourseView() }
-        .environmentObject(AppData())
+    NavigationStack {
+        CourseView()
+            .environmentObject(AppData())
+    }
 }

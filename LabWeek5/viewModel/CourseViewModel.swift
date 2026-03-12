@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 final class CourseViewModel: ObservableObject {
     @Published var courses: [Course]
