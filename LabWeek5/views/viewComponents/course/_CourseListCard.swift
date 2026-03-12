@@ -12,39 +12,40 @@ struct _CourseListCard: View {
     let course: Course
 
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 10) {
             lecturerImage
 
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 2) {
                 Text(course.name)
-                    .font(.title3.weight(.semibold))
+                    .font(.subheadline.weight(.semibold))
                     .foregroundStyle(.primary)
+                    .lineLimit(2)
 
-                HStack(spacing: 6) {
-                    Text(course.lecturerName)
-                    Text("•")
-                    Text("\(course.credits) credits")
-                }
-                .font(.title3)
-                .foregroundStyle(.secondary)
+                Text(course.lecturerName)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+
+                Text("\(course.credits) credits")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
             }
 
-            Spacer(minLength: 8)
+            Spacer(minLength: 6)
 
             Text(course.status.rawValue)
-                .font(.title3)
-                .padding(.horizontal, 14)
-                .padding(.vertical, 7)
-                .background(course.status.color.opacity(0.18))
-                .foregroundStyle(course.status.color)
+                .font(.caption2.weight(.semibold))
+                .foregroundStyle(.white)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+                .background(course.status.color)
                 .clipShape(Capsule())
 
             Image(systemName: "chevron.right")
-                .font(.headline)
+                .font(.caption.weight(.semibold))
                 .foregroundStyle(Color(.systemGray3))
         }
-        .padding(.horizontal, 14)
-        .padding(.vertical, 14)
+        .padding(.horizontal, 12)
+        .padding(.vertical, 10)
     }
 
     @ViewBuilder
@@ -53,13 +54,13 @@ struct _CourseListCard: View {
             Image(course.lecturerImageName)
                 .resizable()
                 .scaledToFill()
-                .frame(width: 54, height: 54)
+                .frame(width: 38, height: 38)
                 .clipShape(Circle())
         } else {
             Image(systemName: "person.circle.fill")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 54, height: 54)
+                .frame(width: 38, height: 38)
                 .foregroundStyle(.purple)
         }
     }

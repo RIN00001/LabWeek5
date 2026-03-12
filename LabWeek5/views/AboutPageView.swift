@@ -20,7 +20,9 @@ struct AboutPageView: View {
 
             Text("Mobile Application Development")
                 .foregroundStyle(.secondary)
-            Text("Gerald Gavin Lienardi")
+            Text("Rifki Indra Nugroho")
+                .foregroundStyle(.secondary)
+            Text("NIM: 0706012410033")
                 .foregroundStyle(.secondary)
             Text("Exercise Week 5 - Navigation Pt.2")
                 .foregroundStyle(.secondary)

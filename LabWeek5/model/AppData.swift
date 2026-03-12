@@ -55,9 +55,15 @@ final class AppData: ObservableObject {
                 location: "Technology Center"
             ),
             Facility(
-                name: "SIFT Food Technology",
+                name: "Food Technology Lab",
                 imageName: "FoodTechnology",
                 description: "Hands-on food processing and quality analysis lab.",
+                location: "Food Lab Building"
+            ),
+            Facility(
+                name: "SIFT",
+                imageName: "SIFT",
+                description: "Hands-on Computer science prongramming lab.",
                 location: "SIFT Building"
             )
         ]
